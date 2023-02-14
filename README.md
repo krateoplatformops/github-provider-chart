@@ -1,4 +1,4 @@
-# Patch Provider Helm Chart
+# Github Provider Helm Chart
 
 This is a [Helm Chart](https://helm.sh/docs/topics/charts/) for [Krateo](https://github.com/krateoplatformops/) Github Provider.
 
