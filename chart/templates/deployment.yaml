@@ -40,18 +40,18 @@ spec:
         securityContext:
           allowPrivilegeEscalation: false
           privileged: false
-          runAsGroup: 2000
+          runAsGroup: {{ .Values.deployment.runAsGroup }}
           runAsNonRoot: true
-          runAsUser: 2000
+          runAsUser: {{ .Values.deployment.runAsUser }}
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
       securityContext:
-        runAsGroup: 2000
+        runAsGroup: {{ .Values.deployment.runAsGroup }}
         runAsNonRoot: true
-        runAsUser: 2000
+        runAsUser: {{ .Values.deployment.runAsUser }}
       serviceAccount: {{ .Chart.Name }}
       serviceAccountName: {{ .Chart.Name }}
       terminationGracePeriodSeconds: 30
