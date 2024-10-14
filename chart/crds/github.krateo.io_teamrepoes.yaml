@@ -4,17 +4,17 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.16.1
-  name: repoes.github.krateo.io
+  name: teamrepoes.github.krateo.io
 spec:
   group: github.krateo.io
   names:
     categories:
     - krateo
     - github
-    kind: Repo
-    listKind: RepoList
-    plural: repoes
-    singular: repo
+    kind: TeamRepo
+    listKind: TeamRepoList
+    plural: teamrepoes
+    singular: teamrepo
   scope: Namespaced
   versions:
   - additionalPrinterColumns:
@@ -27,7 +27,7 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Repo is the Schema for the repoes API
+        description: TeamRepo is the Schema for the repoes API
         properties:
           apiVersion:
             description: |-
@@ -47,7 +47,7 @@ spec:
           metadata:
             type: object
           spec:
-            description: RepoSpec defines the desired state of Repo
+            description: TeamRepoSpec defines the desired state of TeamRepo
             properties:
               apiUrl:
                 description: 'ApiUrl: the baseUrl for the REST API provider.'
@@ -86,30 +86,42 @@ spec:
                     - namespace
                     type: object
                 type: object
-              initialize:
-                description: 'Initialize: whether the repository must be initialized
-                  (default: true).'
-                type: boolean
-              name:
-                description: 'Name: the name of the repository.'
-                type: string
               org:
-                description: 'Org: the organization name.'
+                description: 'Org: The organization name. The name is not case sensitive.'
                 type: string
-              private:
-                description: 'Private: whether the repository is private (default:
-                  true).'
-                type: boolean
+              owner:
+                description: 'Owner: The account owner of the repository. The name
+                  is not case sensitive.'
+                type: string
+              permission:
+                description: 'Permission: The permission to grant the team on this
+                  repository. We accept the following permissions to be set: pull,
+                  triage, push, maintain, admin and you can also specify a custom
+                  repository role name, if the owning organization has defined any.
+                  If no permission is specified, the team''s permission attribute
+                  will be used to determine what permission to grant the team on this
+                  repository.'
+                type: string
+              repo:
+                description: 'Repo: The name of the repository without the .git extension.
+                  The name is not case sensitive.'
+                type: string
+              teamSlug:
+                description: 'TeamSlug: The slug of the team name.'
+                type: string
               verbose:
                 description: Verbose is true dumps your client requests and responses.
                 type: boolean
             required:
             - credentials
-            - name
             - org
+            - owner
+            - permission
+            - repo
+            - teamSlug
             type: object
           status:
-            description: RepoStatus defines the observed state of Repo
+            description: TeamRepoStatus defines the observed state of Repo
             properties:
               conditions:
                 description: Conditions of the resource.
@@ -147,12 +159,6 @@ spec:
                   - type
                   type: object
                 type: array
-              private:
-                description: 'Private: whether the repository is private.'
-                type: boolean
-              url:
-                description: 'Url: repository URL.'
-                type: string
             type: object
         type: object
     served: true
