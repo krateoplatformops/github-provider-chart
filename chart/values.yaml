@@ -80,3 +80,11 @@ affinity: {}
 env:
   GITHUB_PROVIDER_DEBUG: "true"
   GITHUB_PROVIDER_POLL_INTERVAL: "3m"
+
+livenessProbe:
+  httpGet:
+    path: /healthz
+    port: 8081
+  initialDelaySeconds: 15
+  periodSeconds: 10
+
