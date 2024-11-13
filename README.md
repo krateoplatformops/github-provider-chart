@@ -10,3 +10,8 @@ $ helm repo add krateo https://charts.krateo.io
 $ helm repo update krateo
 $ helm install github-provider krateo/github-provider
 ```
+
+
+## Configuration
+
+To view the CRD configuration, visit [this link](https://doc.crds.dev/github.com/krateoplatformops/github-provider-chart).
